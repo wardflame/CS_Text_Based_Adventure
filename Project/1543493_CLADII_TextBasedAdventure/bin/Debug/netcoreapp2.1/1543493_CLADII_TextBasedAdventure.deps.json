@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "1543493_CLADII_TextBasedAdventure/1.0.0": {
+        "runtime": {
+          "1543493_CLADII_TextBasedAdventure.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "1543493_CLADII_TextBasedAdventure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

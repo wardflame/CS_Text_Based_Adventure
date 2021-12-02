@@ -1,4 +1,5 @@
 ﻿using _1543493_CLADII_TextBasedAdventure.EntityContent;
+using _1543493_CLADII_TextBasedAdventure.ItemContent;
 using _1543493_CLADII_TextBasedAdventure.ProfessionContent;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace _1543493_CLADII_TextBasedAdventure.PlayerContent
         public string name;
         public int age;
         public Gender gender;
-        public List<Skill> playerSkills;
+        public List<Skill> playerSkills = new List<Skill>();
         public Profession profession;
-        public HumanEntity playerEntity;
+        public HumanEntity entity = new HumanEntity();
+        public List<Item> equipped = new List<Item>();
+        public List<Item> backpack = new List<Item>();
 
         public enum Gender
         {
@@ -63,7 +66,7 @@ namespace _1543493_CLADII_TextBasedAdventure.PlayerContent
             {
                 if (skill.name == "Melee Combat")
                 {
-                    skill.valueBase += 10;
+                    skill.level += 10;
                 }
                 Console.WriteLine($"\n{num}. {skill}");
                 num++;

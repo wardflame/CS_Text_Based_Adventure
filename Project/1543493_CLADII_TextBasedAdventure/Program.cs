@@ -4,11 +4,14 @@ namespace _1543493_CLADII_TextBasedAdventure
 {
     class Program
     {
+        public static bool running = true;
         static void Main(string[] args)
         {
-            Utilities.LbL("ARES COMBAT MODULE", ConsoleColor.DarkRed, 10, true);
-
-            Game game = new Game();
+            while (running)
+            {
+                Game game = new Game();
+                game.Running();
+            }
         }
     }
 }

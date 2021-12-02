@@ -8,12 +8,13 @@ namespace _1543493_CLADII_TextBasedAdventure.PlayerContent
     public class Skill
     {
         public string name;
-        public int valueBase;
+        public int level;
+        public int progression;
 
         public Skill(string name, int valueBase)
         {
             this.name = name;
-            this.valueBase = valueBase;
+            this.level = valueBase;
         }
 
         public static List<Skill> CreateSkills()
@@ -32,7 +33,7 @@ namespace _1543493_CLADII_TextBasedAdventure.PlayerContent
 
         public override string ToString()
         {
-            return $"{name}\n{valueBase}";
+            return $"{name}\n{level}";
         }
     }
 

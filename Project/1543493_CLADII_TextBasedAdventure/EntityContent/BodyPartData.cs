@@ -16,5 +16,10 @@ namespace _1543493_CLADII_TextBasedAdventure.EntityContent
             this.health = health;
             this.baseHitChance = baseHitChance;
         }
+
+        public override string ToString()
+        {
+            return $">> {name}\nHit Chance: {baseHitChance}%";
+        }
     }
 }

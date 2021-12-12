@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project.2022\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project.2022\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project.2022\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj",
+        "projectName": "1543493_CLADII_TextBasedAdventure",
+        "projectPath": "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project.2022\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj",
+        "packagesPath": "C:\\Users\\scehr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project.2022\\1543493_CLADII_TextBasedAdventure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\scehr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

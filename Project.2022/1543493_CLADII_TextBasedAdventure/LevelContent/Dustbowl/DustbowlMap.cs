@@ -6,9 +6,10 @@ namespace CLADII_TextBasedAdventure.LevelContent.Dustbowl
 {
     public class DustbowlMap : Map
     {
+        public BusStationMap busStationMap = new BusStationMap();
         public DustbowlMap() : base("Dustbowl", Location.Dustbowl)
         {
-            AddMap(new BusStation());
+            AddMap(new BusStationMap());
         }
     }
 }

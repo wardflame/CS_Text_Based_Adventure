@@ -1,5 +1,7 @@
 ﻿using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
 using CLADII_TextBasedAdventure.ItemContent;
+using CLADII_TextBasedAdventure.UserInterfaceContent;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,31 +10,28 @@ namespace CLADII_TextBasedAdventure.CombatContent
 {
     public class Combat
     {
-        public static void CombatScenario(HumanEntity player, List<HumanEntity> npcs)
+        public static void CombatScenario(List<HumanEntity> npcs)
         {
-            Utils.LbL(@"
-▄▀█ █▀█ █▀▀ █▀   █▀▀ █▀█ █▀▄▀█ █▄▄ ▄▀█ ▀█▀   █▀▄▀█ █▀█ █▀▄ █░█ █░░ █▀▀
-█▀█ █▀▄ ██▄ ▄█   █▄▄ █▄█ █░▀░█ █▄█ █▀█ ░█░   █░▀░█ █▄█ █▄▀ █▄█ █▄▄ ██▄", ConsoleColor.Red);
+            CyberTechBanners.AresCombatBanner();
 
-            Item weaponUsed = ChooseWeapon(player.equipped);
-            Skill weaponSkill = GetPlayerWeaponSkill(player, weaponUsed);
-            HumanEntity chosen = TargetEnemy(npcs);
-            Utils.LbL($"\n{chosen} targeted.", ConsoleColor.Red);
-            BodyPartData targetPart = TargetBodyPart(weaponSkill, chosen);
-            Utils.LbL($"\n{targetPart.name} locked in.", ConsoleColor.Red);
-            PlayerAttemptAttack(weaponSkill, weaponUsed, chosen, targetPart);
-
-            Utils.ConsoleUp();
-
-            Console.ReadKey();
+            while (!HumanEntity.player.isDead || npcs.Count > 0)
+            {
+                HumanEntity chosen = TargetEnemy(npcs);
+                Weapon weaponUsed = ChooseWeapon();
+                Skill weaponSkill = Weapon.GetWeaponSkill(weaponUsed);
+                Utils.LbL($"\n{chosen} targeted.", ConsoleColor.Red);
+                BodyPartData targetPart = TargetBodyPart(weaponSkill, chosen);
+                Utils.LbL($"\n{targetPart.name} locked in.", ConsoleColor.Red);
+                PlayerAttemptAttack(weaponSkill, weaponUsed, chosen, targetPart);
+            }
         }
 
-        private static Item ChooseWeapon(List<Item> equipped)
+        private static Weapon ChooseWeapon()
         {
             Utils.LbL($"\n## Equipped Weapons ##", ConsoleColor.Cyan);
-            for (int i = 0; i < equipped.Count; i++)
+            for (int i = 0; i < HumanEntity.player.equippedWeapons.Count; i++)
             {
-                Console.WriteLine($"\n{i + 1}. {equipped[i]}");
+                Console.WriteLine($"\n{i + 1}. {HumanEntity.player.equippedWeapons[i]}");
             }
 
             Console.Write("\nWeapon selected (#): ");
@@ -40,31 +39,15 @@ namespace CLADII_TextBasedAdventure.CombatContent
 
             while (true)
             {
-                if (inputNum > 0 && inputNum <= equipped.Count)
+                if (inputNum > 0 && inputNum <= HumanEntity.player.equippedWeapons.Count)
                 {
-                    return equipped[inputNum - 1];
+                    return HumanEntity.player.equippedWeapons[inputNum - 1];
                 }
                 else
                 {
                     Console.WriteLine("\nInput a valid number.");
-                    return ChooseWeapon(equipped);
+                    return ChooseWeapon();
                 }
-            }
-        }
-
-        private static Skill GetPlayerWeaponSkill(HumanEntity player, Item item)
-        {
-            switch (item.type)
-            {
-                case Item.WeaponType.Pistol:
-                    {
-                        return player.skills.Find(skill => skill.name == "One-Hand Firearms");
-                    }
-                default:
-                    {
-                        Console.WriteLine("\nNot in this test.");
-                        return GetPlayerWeaponSkill(player, item);
-                    }
             }
         }
 
@@ -117,7 +100,7 @@ namespace CLADII_TextBasedAdventure.CombatContent
             }
         }
 
-        private static void PlayerAttemptAttack(Skill skill, Item item, HumanEntity npc, BodyPartData bodyPart)
+        private static void PlayerAttemptAttack(Skill skill, Weapon item, HumanEntity npc, BodyPartData bodyPart)
         {
             int attemptAttack = new Random().Next(0, 101);
             Console.WriteLine($"\nAttack roll: {attemptAttack}");
@@ -131,27 +114,27 @@ namespace CLADII_TextBasedAdventure.CombatContent
                 }
                 switch (item.typeSkill)
                 {
-                    case Item.SkillType.BladeMeleeCombat:
+                    case Weapon.SkillType.BladeMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name.ToLower()} slashed with {item.name}.", ConsoleColor.Red);
                         }
                         break;
-                    case Item.SkillType.BluntMeleeCombat:
+                    case Weapon.SkillType.BluntMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name.ToLower()} bludgeoned with {item.name}.", ConsoleColor.Red);
                         }
                         break;
-                    case Item.SkillType.UnarmedMeleeCombat:
+                    case Weapon.SkillType.UnarmedMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name.ToLower()} struck with {item.name}.", ConsoleColor.Red);
                         }
                         break;
-                    case Item.SkillType.OneHandFirearms:
+                    case Weapon.SkillType.OneHandFirearms:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name.ToLower()} hit with {item.name}.", ConsoleColor.Red);
                         }
                         break;
-                    case Item.SkillType.TwoHandFirearms:
+                    case Weapon.SkillType.TwoHandFirearms:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name.ToLower()} hit with {item.name}.", ConsoleColor.Red);
                         }
@@ -164,7 +147,7 @@ namespace CLADII_TextBasedAdventure.CombatContent
             }
         }
 
-        private static void EnemyAttemptAttack(HumanEntity npc, Skill skill, Item item, HumanEntity player, BodyPartData bodyPart)
+        private static void EnemyAttemptAttack(HumanEntity npc, Skill skill, Weapon item, HumanEntity player, BodyPartData bodyPart)
         {
             int attemptAttack = new Random().Next(0, 101);
             Console.WriteLine($"\nAttack roll: {attemptAttack}");
@@ -174,27 +157,27 @@ namespace CLADII_TextBasedAdventure.CombatContent
 
                 switch (item.typeSkill)
                 {
-                    case Item.SkillType.BladeMeleeCombat:
+                    case Weapon.SkillType.BladeMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name} slashed with {item.name}.", ConsoleColor.Green);
                         }
                         break;
-                    case Item.SkillType.BluntMeleeCombat:
+                    case Weapon.SkillType.BluntMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name} bludgeoned with {item.name}.", ConsoleColor.Green);
                         }
                         break;
-                    case Item.SkillType.UnarmedMeleeCombat:
+                    case Weapon.SkillType.UnarmedMeleeCombat:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name} struck with {item.name}.", ConsoleColor.Green);
                         }
                         break;
-                    case Item.SkillType.OneHandFirearms:
+                    case Weapon.SkillType.OneHandFirearms:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name} hit with {item.name}.", ConsoleColor.Green);
                         }
                         break;
-                    case Item.SkillType.TwoHandFirearms:
+                    case Weapon.SkillType.TwoHandFirearms:
                         {
                             Utils.LbL($"\n{npc.name}'s {bodyPart.name} hit with {item.name}.", ConsoleColor.Green);
                         }

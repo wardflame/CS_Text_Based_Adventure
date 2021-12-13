@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>1543493_CLADII_TextBasedAdventure</id>
+    <version>1.0.0</version>
+    <authors>1543493_CLADII_TextBasedAdventure</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp2.1\1543493_CLADII_TextBasedAdventure.runtimeconfig.json" target="lib\netcoreapp2.1\1543493_CLADII_TextBasedAdventure.runtimeconfig.json" />
+    <file src="C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp2.1\1543493_CLADII_TextBasedAdventure.dll" target="lib\netcoreapp2.1\1543493_CLADII_TextBasedAdventure.dll" />
+  </files>
+</package>

@@ -1,9 +1,7 @@
-﻿using CLADII_TextBasedAdventure.CombatContent;
-using CLADII_TextBasedAdventure.EntityContent;
+﻿using CLADII_TextBasedAdventure.BackEndContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
 using CLADII_TextBasedAdventure.FrontEndContent;
-using CLADII_TextBasedAdventure.ItemContent;
 using CLADII_TextBasedAdventure.LevelContent;
-using CLADII_TextBasedAdventure.PlayerContent;
 using CLADII_TextBasedAdventure.SaveSystem;
 using System;
 using System.Collections.Generic;
@@ -13,9 +11,11 @@ namespace CLADII_TextBasedAdventure
 {
     public class Game
     {
-        HumanEntity player = HumanEntity.player;
+
         public void Running()
         {
+            GameSettings.gameSettings = SaveData.LoadGameSettings();
+
             bool isMainMenu = true;
             while (isMainMenu)
             {
@@ -25,23 +25,61 @@ namespace CLADII_TextBasedAdventure
             bool playing = true;
             while (playing)
             {
-                
-                /*Skill oneHand = player.skills.Find(skill => skill.name == "One-Hand Firearms");
-                oneHand.level = 45;
-                FirearmWeapon pistol = new FirearmWeapon("CLAD-II", 45, 100, FirearmWeapon.WeaponType.Pistol, Item.SkillType.OneHandFirearms);
-                player.equipped.Add(pistol);
-
-                HumanEntity enemy = new HumanEntity("Antagonist");
-
-                List<HumanEntity> enemies = new List<HumanEntity>();
-                enemies.Add(enemy);
-
-                Movement.Traversal(player);
-
-                if (player.currentLocation.location == Location.BusStation)
+                if (HumanEntity.player.newGame)
                 {
-                    Combat.CombatScenario(player, enemies);
-                }*/
+                    if (HumanEntity.player.intro1)
+                    {
+                        HumanEntity.player.currentLocation = Map.worldMap.introBusMap;
+                        HumanEntity.player.currentLocation.OnEnterFirst();
+                        HumanEntity.player.intro1 = false;
+                        SaveData.SavePlayerCharacter();                        
+                    }
+                    if (HumanEntity.player.intro2)
+                    {
+                        HumanEntity.player.currentLocation = Map.worldMap.introBusMap.virtualCombatMap;
+                        HumanEntity.player.currentLocation.OnEnterFirst();
+                        HumanEntity.player.intro2 = false;
+                        SaveData.SavePlayerCharacter();
+                    }
+                    if (HumanEntity.player.intro3)
+                    {
+                        HumanEntity.player.currentLocation = Map.worldMap.introBusMap.virtualCombatMap.virtualShootingRangeMap;
+                        HumanEntity.player.currentLocation.OnEnterFirst();
+                        HumanEntity.player.intro3 = false;
+                        SaveData.SavePlayerCharacter();
+                    }
+                    if (HumanEntity.player.intro4)
+                    {
+                        HumanEntity.player.currentLocation = Map.worldMap.dustbowlMap.busStationMap;
+                        HumanEntity.player.currentLocation.OnEnterFirst();
+                        HumanEntity.player.intro4 = false;
+                        SaveData.SavePlayerCharacter();
+                    }
+                    HumanEntity.player.newGame = false;
+                }
+
+                Utils.LbL("\nThank you for playing the CLAD-II demo. Would you like to start again? (y/n)", ConsoleColor.Green);
+                while (true)
+                {
+                    switch (Utils.GetInput())
+                    {
+                        case "y":
+                            {
+                                Utils.ConsoleUp();
+                                return;
+                            }
+                        case "n":
+                            {
+                                Environment.Exit(0);
+                            }
+                            break;
+                        default:
+                            {
+                                Console.WriteLine("\nInput y/n.");
+                            }
+                            break;
+                    }
+                }
             }
         }
     }

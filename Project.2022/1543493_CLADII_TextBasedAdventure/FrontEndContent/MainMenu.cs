@@ -1,5 +1,7 @@
 ﻿using CLADII_TextBasedAdventure.BackEndContent;
 using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
+using CLADII_TextBasedAdventure.LevelContent;
 using CLADII_TextBasedAdventure.PlayerContent;
 using CLADII_TextBasedAdventure.SaveSystem;
 using System;
@@ -43,20 +45,28 @@ namespace CLADII_TextBasedAdventure.FrontEndContent
             {
                 case "1":
                     {
-                        Playtime.StartPlaytime();
-                        PlayerCreator.CreateCharacter();
-                        SaveData.Save();
-                        return false;
+                        if (Utils.InputVerification("\nAre you sure you want to start a new game?\nIt's recommended to consult the settings menu to set type speed for narrative text first. Continue? (y/n)"))
+                        {
+                            Playtime.StartPlaytime();
+                            HumanEntity.ResetPlayerCharacter();
+                            return false;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            return true;
+                        }
                     }
                 case "2":
                     {
-                        HumanEntity.player = SaveData.Load();
-                        if (HumanEntity.player == null)
-                        {
+                        HumanEntity query = SaveData.LoadPlayerCharacter();
+                        if (query == null)
+                        {                            
                             Thread.Sleep(1000);
                             Console.Clear();
                             return true;
                         }
+                        HumanEntity.player = query;
                         Playtime.StartPlaytime();
                         return false;
                     }

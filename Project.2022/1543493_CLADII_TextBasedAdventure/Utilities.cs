@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CLADII_TextBasedAdventure.BackEndContent;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -7,9 +8,6 @@ namespace CLADII_TextBasedAdventure
 {
     public static class Utils
     {
-        // Static int used in the method LbL to determine how fast the text will print.
-        public static int textSpeed = 50;
-
         /// <summary>
         /// A generic method for getting player input. Customisable
         /// to limit player errors during input.
@@ -52,7 +50,7 @@ namespace CLADII_TextBasedAdventure
                 }
                 else
                 {
-                    Thread.Sleep(textSpeed);
+                    Thread.Sleep(GameSettings.gameSettings.textSpeed);
                 }
                 Console.Write(c);
             }

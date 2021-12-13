@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cZWFpGZKSvHvMyW42WQEy0OXAV7dYa6lk/40ElHaiZnpAQUn6sjBI7KeiBUUDWwYBvEvXn2NvFeBnr+NCTzPIQ==",
+  "dgSpecHash": "AQeGklOCrnlDS7qd+t0L/HVOZIQeIHN6TI86Gb43uPclX7UwU4I3Gd0EfhcGAm5H5b9izx9VxXh4xJPUAf91WQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\Project\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj",
+  "projectFilePath": "C:\\Users\\scehr\\OneDrive\\__GitHub__\\1543493_CLADII_TextBasedAdventure\\ProjectArchive\\Project0.1\\1543493_CLADII_TextBasedAdventure\\1543493_CLADII_TextBasedAdventure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\scehr\\.nuget\\packages\\microsoft.netcore.app\\2.1.0\\microsoft.netcore.app.2.1.0.nupkg.sha512",
     "C:\\Users\\scehr\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.1.0\\microsoft.netcore.dotnetapphost.2.1.0.nupkg.sha512",

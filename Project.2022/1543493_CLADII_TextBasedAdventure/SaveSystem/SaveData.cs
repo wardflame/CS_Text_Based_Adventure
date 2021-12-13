@@ -1,5 +1,6 @@
 ﻿using CLADII_TextBasedAdventure.BackEndContent;
 using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace CLADII_TextBasedAdventure.SaveSystem
 {
-    class SaveData
+    public class SaveData
     {
         /// <summary>
         /// If the main save directory Saves doesn't exist,
@@ -23,12 +24,50 @@ namespace CLADII_TextBasedAdventure.SaveSystem
         }
 
         /// <summary>
+        /// Save game settings, things such as text speed etc.
+        /// </summary>
+        public static void SaveGameSettings()
+        {
+            if (!Directory.Exists($"GameSettings"))
+            {
+                Directory.CreateDirectory($"GameSettings");
+            }
+
+            string save = JsonConvert.SerializeObject(GameSettings.gameSettings);
+
+            File.WriteAllText($"GameSettings\\GameSettings.json", save);
+        }
+
+        /// <summary>
+        /// If a GameSettings save exists, return it.
+        /// </summary>
+        /// <returns>Game settings.</returns>
+        public static GameSettings LoadGameSettings()
+        {
+            bool getGameSettSave = Directory.Exists("GameSettings");
+            if (!getGameSettSave)
+            {
+                Directory.CreateDirectory("GameSettings");
+                return GameSettings.gameSettings;
+            }
+            else
+            {
+                if (!File.Exists("GameSettings\\GameSettings.json"))
+                {
+                    return GameSettings.gameSettings;
+                }
+                return JsonConvert.DeserializeObject<GameSettings>(File.ReadAllText($"GameSettings\\GameSettings.json"));
+            }
+        }
+
+        /// <summary>
+        /// Save player character.
         /// If a directory doesn't exist within Saves that has
         /// the character's name, create one. Set the player's
         /// play time and then serialize the player to .json.
         /// Save the file name as the total time played in DateTime.
         /// </summary>
-        public static void Save()
+        public static void SavePlayerCharacter()
         {
             if (!Directory.Exists($"Saves\\{HumanEntity.player.name}"))
             {
@@ -41,6 +80,8 @@ namespace CLADII_TextBasedAdventure.SaveSystem
             string save = JsonConvert.SerializeObject(HumanEntity.player);
 
             File.WriteAllText($"Saves\\{HumanEntity.player.name}\\{gameTime.ToString("H.mm.ss.ff")}.json", save);
+
+            Utils.LbL("\n/// Game Saved ///\n", ConsoleColor.DarkCyan, 1, speedCustom: true);
         }
 
         /// <summary>
@@ -71,7 +112,7 @@ namespace CLADII_TextBasedAdventure.SaveSystem
         /// be the player from that file.
         /// </summary>
         /// <returns></returns>
-        public static HumanEntity Load()
+        public static HumanEntity LoadPlayerCharacter()
         {
             bool getSaves = GetSaves();
             if (!getSaves)
@@ -131,6 +172,14 @@ namespace CLADII_TextBasedAdventure.SaveSystem
 
                 return JsonConvert.DeserializeObject<HumanEntity>(File.ReadAllText($"Saves\\{dirCharName}\\{saveName}"));
             }
+        }
+
+        /// <summary>
+        /// Return loaded player to their current location.
+        /// </summary>
+        public static void LoadCurrentLocation()
+        {
+            HumanEntity.player.currentLocation.OnEnter();
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CLADII_TextBasedAdventure.BackEndContent;
+using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.SaveSystem;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -31,7 +34,7 @@ namespace CLADII_TextBasedAdventure.FrontEndContent
                 {
                     case "1":
                         {
-                            Console.Write($"\nChoose a speed (in milliseconds) at which game text is printed character-by-character.\nDefault: 50\nCurrent: {Utils.textSpeed}\nNew speed (input # between 0-1000): ");
+                            Console.Write($"\nChoose a speed (in milliseconds) at which game text is printed character-by-character.\nDefault: 50\nCurrent: {GameSettings.gameSettings.textSpeed}\nNew speed (input # between 0-1000): ");
                             bool checkingInput = true;
                             while (checkingInput)
                             {
@@ -42,8 +45,9 @@ namespace CLADII_TextBasedAdventure.FrontEndContent
                                 }
                                 else
                                 {
-                                    Utils.textSpeed = inputNum;
-                                    Utils.LbL($"\nText speed set to: {Utils.textSpeed}");
+                                    GameSettings.gameSettings.textSpeed = inputNum;
+                                    Utils.LbL($"\nText speed set to: {GameSettings.gameSettings.textSpeed}");
+                                    SaveData.SaveGameSettings();
                                     Thread.Sleep(1000);
                                     checkingInput = false;
                                 }

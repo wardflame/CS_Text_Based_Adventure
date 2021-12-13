@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CLADII_TextBasedAdventure.CombatContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,14 +9,30 @@ namespace CLADII_TextBasedAdventure.ItemContent
     public class Item
     {
         public string name;
+        public string description;
+        public int quantity;
+
+        public Item(string name)
+        {
+            this.name = name;
+        }
+
+        public override string ToString()
+        {
+            return $"{name}";
+        }
+    }
+
+    public class Weapon : Item
+    {
         public int damage;
-        public int durability;
+        public int condition;
         public WeaponType type;
         public SkillType typeSkill;
- 
+
         public enum WeaponType
         {
-            Fist,
+            HandToHand,
             Hammer,
             Knife,
             Sword,
@@ -32,26 +50,66 @@ namespace CLADII_TextBasedAdventure.ItemContent
             TwoHandFirearms
         }
 
-        public override string ToString()
+        public Weapon(string name) : base(name)
         {
-            return $"{name}\nDamage: {damage}\nDurability: {durability}%";
+
+        }
+        public static Skill GetWeaponSkill(Weapon chosenWeapon)
+        {
+            switch (chosenWeapon.typeSkill)
+            {
+                case Weapon.SkillType.UnarmedMeleeCombat:
+                    {
+                        return HumanEntity.player.skills.Find(skill => skill.name == "Unarmed Combat");
+                    }
+                case Weapon.SkillType.BladeMeleeCombat:
+                    {
+                        return HumanEntity.player.skills.Find(skill => skill.name == "Blade Weapon Combat");
+                    }
+                case Weapon.SkillType.BluntMeleeCombat:
+                    {
+                        return HumanEntity.player.skills.Find(skill => skill.name == "Blunt Weapon Combat");
+                    }
+                case Weapon.SkillType.OneHandFirearms:
+                    {
+                        return HumanEntity.player.skills.Find(skill => skill.name == "One-Hand Firearms");
+                    }
+                case Weapon.SkillType.TwoHandFirearms:
+                    {
+                        return HumanEntity.player.skills.Find(skill => skill.name == "Two-Hand Firearms");
+                    }
+                default:
+                    {
+                        Console.WriteLine("\nUnable to find a skill.");
+                        return null;
+                    }
+            }
         }
     }
 
-    public class MeleeWeapon : Item
+    public class MeleeWeapon : Weapon
     {
-        
+        public MeleeWeapon(string name) : base(name)
+        {
+        }
     }
 
-    public class FirearmWeapon : Item
+    public class FirearmWeapon : Weapon
     {
-        public FirearmWeapon(string name, int damage, int durability, WeaponType type, SkillType typeSkill)
+        public FirearmWeapon(string name) : base(name)
+        {
+        }
+    }
+
+    public class CortexCoreItem : Item
+    {
+        public static CortexCoreItem cortechI = new CortexCoreItem("Cortech-I Cortex Implant", 3.000f);
+
+        public float skillMemory;
+        public CortexCoreItem(string name, float skillMemory) : base(name)
         {
             this.name = name;
-            this.damage = damage;
-            this.durability = durability;
-            this.type = type;
-            this.typeSkill = typeSkill;
+            this.skillMemory = skillMemory;
         }
     }
 }

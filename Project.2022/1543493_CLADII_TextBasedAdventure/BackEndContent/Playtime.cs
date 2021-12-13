@@ -1,4 +1,5 @@
 ﻿using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

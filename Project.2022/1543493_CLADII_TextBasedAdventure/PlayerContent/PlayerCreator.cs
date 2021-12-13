@@ -1,5 +1,8 @@
 ﻿using CLADII_TextBasedAdventure.BackEndContent;
+using CLADII_TextBasedAdventure.CombatContent;
 using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
+using CLADII_TextBasedAdventure.UserInterfaceContent;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,78 +12,25 @@ namespace CLADII_TextBasedAdventure.PlayerContent
     public static class PlayerCreator
     {
         /// <summary>
-        /// Serves as both the narrative intro and the character creator.
-        /// Story begins in media res, with player narrowly escaping enemies.
-        /// Player then recalls information from the last days which establishes
-        /// their character's statistics.
+        /// Run the player through a series of queries to gather essential
+        /// information about them: Name, Age, Body Type and Skills. Done
+        /// through the guise of a bit of in-lore neural software.
         /// </summary>
         public static void CreateCharacter()
         {
-            Utils.LbL(@"
-Looking over your shoulder at the crowd being shoved around behind you,
-you climb up into the bus and run your wrist over the pay scanner.
-
-    Two seconds,
-    three seconds,
-    payment successful.
-
-    You tuck away into one of the back seats and peek out a side window.
-
-    Four men, tattooed and openly carrying pistols, look around frantically,
-pushing panicked civs away. They split up, going for a bus each, but just as
-a burly one can come up to your bus, the driver shuts his door and pulls off
-from the depot, despite the goon's attempts to bang on the bus' side.
-
-    Looking out the back window, you watch the men reconvene, frustrated and
-arguing.
-
-    It's over...
-
-    For the first time in the last forty-eight hours, you can
-sit down and ", newLine: false);
-            Utils.LbL("breathe...\n", ConsoleColor.Cyan);
-            Utils.LbL(@"
-    You sit, panting, watching City 12 and all its neon lights and high-rises
-growing smaller and smaller. Ahead of you, there's an open road, dust and dunes
-for miles around, and only a few lonely travellers on the bus. It takes about
-ten minutes for the dust and rocks to get boring to look at, at which point
-you hoist the duffel bag you brought with you up onto your lap.
-    
-    Looking at the duffel bag makes you feel sick to your core. Not five hours
-ago, Sonny, your closest friend, caught a few rounds in his torso and buckled
-there and then. He told you to run for the depot, to run and not look back.
-You did as he said. You left him there, alive, with those...monsters. But it's
-what he wanted.
-
-    'Can't be goin' to City 11 with these names,' Sonny said to you yesterday.
-'Gotta shake it up, start fresh.' Thinking back on it makes you realise that
-you really do need to thing about it now--the sooner the better. Don't want
-any of these bus-goers reading into you too much.
-
-    You reach into the duffel bag and pull out a MemStik, the standard
-'flash-drive' of the modern world, wireless, syncs up with your CortexCore,
-the chip in your brain, and gives you access to whatever's on the Mem, as it's
-often called.
-    
-    You bring the Mem up to your temple and take a deep breath. It takes a few
-moments, but Sonny's NewMe.exe boots up. It makes you smirk. The guy was
-always into his theatrics... He's called you 'The Protagonist,' but it's only
-a placeholder. Funny guy...
-");
-            Utils.LbL(@"
-█▄░█ █▀▀ █░█░█ █▀▄▀█ █▀▀ ░ █▀▀ ▀▄▀ █▀▀
-█░▀█ ██▄ ▀▄▀▄▀ █░▀░█ ██▄ ▄ ██▄ █░█ ██▄", ConsoleColor.Magenta, speed: 1, speedCustom: true);
-
+            CyberTechBanners.NewMeBanner();
             SetCharacterName();
             SetCharacterAge();
+            SetCharacterBodyType();
+            SetCharacterSkills();
 
-            Console.ReadKey();
+            Utils.LbL("\nWelcome to the new you, hun.", ConsoleColor.Magenta);
         }
 
         /// <summary>
         /// Get a player input and verify that it will be the character's name.
         /// </summary>
-        public static void SetCharacterName()
+        private static void SetCharacterName()
         {
             bool choosingName = true;
             while (choosingName)
@@ -88,18 +38,19 @@ a placeholder. Funny guy...
                 Utils.LbL("\nInput your new name: ", ConsoleColor.Magenta, newLine: false);
 
                 string input = Utils.GetInput();
-                if (Utils.InputVerification($"\nAre you sure {input} will be your new name? (y/n)"))
+                if (Utils.InputVerification($"\nWanna be called {input}? (y/n)"))
                 {
                     HumanEntity.player.name = input;
-                    break;
+                    choosingName = false;
                 }
+                continue;
             }
         }
 
         /// <summary>
         /// Get a player input and verify that it will be the character's age.
         /// </summary>
-        public static void SetCharacterAge()
+        private static void SetCharacterAge()
         {
             bool choosingAge = true;
             while (choosingAge)
@@ -107,22 +58,204 @@ a placeholder. Funny guy...
                 Utils.LbL("\nInput your new age: ", ConsoleColor.Magenta, newLine: false);
 
                 string input = Utils.GetInput();
-                if (int.TryParse(input, out int inputNum) && inputNum < 50 && inputNum >= 18 && Utils.InputVerification($"\nAre you sure {inputNum} will be your new age? (y/n)"))
+                int.TryParse(input, out int inputNum);
+                if (18 <= inputNum && inputNum <= 50)
                 {
-                    HumanEntity.player.age = inputNum;
-                    break;
+                    if (Utils.InputVerification($"\nSure you wanna be {inputNum} years old? (y/n)"))
+                    {
+                        HumanEntity.player.age = inputNum;
+                        choosingAge = false;
+                    }
+                }
+                else if (inputNum > 50)
+                {
+                    Utils.LbL("\nYou wouldn't have made it this far at that age, babe.", ConsoleColor.DarkMagenta);
+                }
+                else if (0 < inputNum && inputNum < 18)
+                {
+                    Utils.LbL("\nLittle young, doncha think?", ConsoleColor.DarkMagenta);
                 }
                 else
                 {
-                    Utils.LbL("\nInvalid age.", ConsoleColor.DarkMagenta);
+                    Utils.LbL("\nInput correct age.", ConsoleColor.DarkMagenta);
                 }
-                Console.WriteLine();
+                continue;
             }
         }
 
-        public static void SetCharacterProfession()
+        /// <summary>
+        /// Get a player input and verify they want their body type to be as
+        /// designated.
+        /// </summary>
+        private static void SetCharacterBodyType()
         {
+            bool choosingBodyType = true;
+            while (choosingBodyType)
+            {
+                Utils.LbL("\nChoose your body type:\n", ConsoleColor.Magenta);
+                int listNum = 1;
+                var bodyEnums = Enum.GetValues(typeof(HumanEntity.BodyType));
+                foreach (HumanEntity.BodyType bodyType in bodyEnums)
+                {
+                    Utils.LbL($"{listNum++}. {bodyType}");
+                }
 
+                string input = Utils.GetInput(trim: true);
+                int.TryParse(input, out int inputNum);
+                if (1 <= inputNum && inputNum <= Enum.GetNames(typeof(HumanEntity.BodyType)).Length)
+                {
+                    if (Utils.InputVerification($"\nWanna be body type {(HumanEntity.BodyType)inputNum - 1}? (y/n)"))
+                    {
+                        HumanEntity.player.bodyType = (HumanEntity.BodyType)inputNum - 1;
+                        choosingBodyType = false;
+                    }
+                    continue;                  
+                }
+                else
+                {
+                    Utils.LbL("\nInput appropriate number.", ConsoleColor.DarkMagenta);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Introduce the player to skills and skill storage allocation,
+        /// then have them choose to add skill points to skills they're
+        /// interested in. 
+        /// </summary>
+        private static void SetCharacterSkills()
+        {
+            bool choosingProfession = true;
+            while (choosingProfession)
+            {
+                Utils.LbL($"\nWelcome to the Build-a-Bitch section of the program, {HumanEntity.player.name}. Here's your chance to" +
+                    $"\nstart fresh. I've listed all the skills you can develop here. Each of these" +
+                    $"\nskills will benefit you in countless different situations. They'll get you out" +
+                    $"\nof trouble, and might get you into it.\n" +
+                    $"" +
+                    $"\nWe're uploading memories here, experiences and data from real-world examples." +
+                    $"\nIt takes a huge load of data to set that up, y'know. The human brain stores 2.5" +
+                    $"\npetabytes of data. Your MemStik gives you another 0.5, so you're at 3. Below," +
+                    $"\nyou can select a skill by its number and add/remove storage allocation for it. The" +
+                    $"\nmore allocation you give to a skill, the better you'll be at it.\n", ConsoleColor.DarkMagenta, newLine: false);
+                Utils.LbL("\nNOTE: ", ConsoleColor.Red, newLine: false);
+                Utils.LbL("1 skill partition is about 0.06 petabytes (60 Terabytes!), so you got" +
+                    "\nroughly 50 partitions to play with. CHOOSE WISELY!!!", ConsoleColor.DarkMagenta);
+
+                int pointsToSpend = 50;
+                while (true)
+                {
+                    float petabytesRemaining = 0.06f*(float)pointsToSpend;
+                    Utils.LbL($"\n[## SKILLS ##]", ConsoleColor.Magenta, 1, speedCustom: true);
+                    Utils.LbL($"Petabytes remaining: {petabytesRemaining}", ConsoleColor.Cyan, 1, speedCustom: true);
+
+                    int listEnd = Skill.PrintPCSkills();
+
+                    if (pointsToSpend <= 0)
+                    {
+                        Utils.LbL($"\n{listEnd}. Finish assigning skills.", ConsoleColor.Yellow, 1, speedCustom: true);
+                    }
+
+                    string input = Utils.GetInput(trim: true);
+                    int.TryParse(input, out int inputNum);
+                    if (pointsToSpend <= 0 && inputNum == listEnd )
+                    {
+                        if (Utils.InputVerification("\nAre you sure you're finished setting your skills? (y/n)"))
+                        {
+                            choosingProfession = false;
+                            break;
+                        }
+                        continue;
+                    }
+                    else if (0 < inputNum && (inputNum - 1) <= HumanEntity.player.skills.Count)
+                    {
+                        Skill chosenSkill = HumanEntity.player.skills[inputNum - 1];
+                        int pointsToChange = InputPCSkills(pointsToSpend, chosenSkill.level, chosenSkill.name);
+                        chosenSkill.level += pointsToChange;
+                        pointsToSpend -= pointsToChange;
+                    }                    
+                    else
+                    {
+                        Utils.LbL("\nInvalid number.\n", ConsoleColor.DarkMagenta);
+                    }
+                }                
+            }
+        }
+
+        /// <summary>
+        /// Feed in points remaining to be spent on skills, followed by the current
+        /// level of the targetted skill and the name. Request a modification from
+        /// the player and apply that number to the skill level/reduce from the 
+        /// point remaining int.
+        /// </summary>
+        /// <param name="pointsRemaining">Remaining points to be spent.</param>
+        /// <param name="currentSkillLevel">Level of targetted skill.</param>
+        /// <param name="skillName">Name of targetted skill.</param>
+        /// <returns></returns>
+        private static int InputPCSkills(int pointsRemaining, int currentSkillLevel, string skillName)
+        {
+            Utils.LbL($"\nHow many points do you want to add/remove from ", ConsoleColor.Magenta, newLine: false);
+            Utils.LbL($"{skillName}", ConsoleColor.Blue, newLine: false);
+            Utils.LbL($"?", ConsoleColor.Magenta);
+
+            string input = Utils.GetInput(trim: true);
+
+            if (!int.TryParse(input, out int pointsToChange))
+            {
+                Console.WriteLine("\nPlease input a number.");
+                return InputPCSkills(pointsRemaining, currentSkillLevel, skillName);
+            }
+
+            if (pointsRemaining < pointsToChange)
+            {
+                Console.WriteLine($"\nYou have insufficient points to spend.");
+                return InputPCSkills(pointsRemaining, currentSkillLevel, skillName);
+            }
+
+            if ((currentSkillLevel + pointsToChange) > 100)
+            {
+                Console.WriteLine($"Skill level cannot exceed 100.");
+                return InputPCSkills(pointsRemaining, currentSkillLevel, skillName);
+            }
+
+            if (currentSkillLevel < Math.Abs(pointsToChange) && (pointsToChange < 0))
+            {
+                Console.WriteLine($"\nYou cannot remove that many points.");
+                return InputPCSkills(pointsRemaining, currentSkillLevel, skillName);
+            }
+
+            return pointsToChange;
+        }
+
+        /// <summary>
+        /// Create a new inventory for the player depending on the
+        /// difficult they choose to start the game on.
+        /// </summary>
+        private static void InitPCInventory(int diffcultyNum)
+        {
+            switch (diffcultyNum)
+            {
+                case 1:
+                    {
+
+                    }
+                    break;
+                case 2:
+                    {
+
+                    }
+                    break;
+                case 3:
+                    {
+
+                    }
+                    break;
+                default:
+                    {
+                        Utils.LbL("\nInput a valid number.");
+                    }
+                    break;
+            }
         }
     }
 }

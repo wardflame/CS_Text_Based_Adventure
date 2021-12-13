@@ -1,4 +1,5 @@
 ﻿using CLADII_TextBasedAdventure.EntityContent;
+using CLADII_TextBasedAdventure.EntityContent.EntityTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,26 +21,54 @@ namespace CLADII_TextBasedAdventure.CombatContent
         public static List<Skill> CreateSkills()
         {
             List<Skill> skills = new List<Skill>();
-            MeleeCombatSkill meleeCombatSkill = new MeleeCombatSkill();
+            UnarmedCombatSkill unarmedCombatSkill = new UnarmedCombatSkill();
+            BluntWeaponCombatSkill bluntWeaponCombatSkill = new BluntWeaponCombatSkill();
+            BladeWeaponCombatSkill bladeWeaponCombatSkill = new BladeWeaponCombatSkill();
             OneHandFirearmsSkill oneHandFirearmsSkill = new OneHandFirearmsSkill();
             TwoHandFirearmsSkill twoHandFirearmsSkill = new TwoHandFirearmsSkill();
+            EngineeringSkill engineeringSkill = new EngineeringSkill();
+            SpeechSkill speechSkill = new SpeechSkill();
+            NarcoticsSkill narcoticsSkill = new NarcoticsSkill();
 
-            skills.Add(meleeCombatSkill);
+            skills.Add(unarmedCombatSkill);
+            skills.Add(bluntWeaponCombatSkill);
+            skills.Add(bladeWeaponCombatSkill);
             skills.Add(oneHandFirearmsSkill);
             skills.Add(twoHandFirearmsSkill);
+            skills.Add(engineeringSkill);
+            skills.Add(speechSkill);
+            skills.Add(narcoticsSkill);
 
             return skills;
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Return the list of player skills.
+        /// </summary>
+        public static int PrintPCSkills()
         {
-            return $"{name}\n{level}";
+            int listNum = 1;
+            foreach (Skill skill in HumanEntity.player.skills)
+            {
+                Utils.LbL($"\n{listNum++}. {skill.name}\nLevel: {skill.level}", ConsoleColor.DarkMagenta, 1, speedCustom: true);
+            }
+            return listNum;
         }
     }
 
-    public class MeleeCombatSkill : Skill
+    public class UnarmedCombatSkill : Skill
     {
-        public MeleeCombatSkill() : base("Melee Combat", 0) { }
+        public UnarmedCombatSkill() : base("Unarmed Combat", 0) { }
+    }
+
+    public class BladeWeaponCombatSkill : Skill
+    {
+        public BladeWeaponCombatSkill() : base("Blade Weapon Combat", 0) { }
+    }
+
+    public class BluntWeaponCombatSkill : Skill
+    {
+        public BluntWeaponCombatSkill() : base("Blunt Weapon Combat", 0) { }
     }
 
     public class OneHandFirearmsSkill : Skill
@@ -50,5 +79,20 @@ namespace CLADII_TextBasedAdventure.CombatContent
     public class TwoHandFirearmsSkill : Skill
     {
         public TwoHandFirearmsSkill() : base("Two-Hand Firearms", 0) { }
+    }
+
+    public class EngineeringSkill : Skill
+    {
+        public EngineeringSkill() : base("Engineering", 0) { }
+    }
+
+    public class SpeechSkill : Skill
+    {
+        public SpeechSkill() : base ("Speech", 0) { }
+    }
+
+    public class NarcoticsSkill : Skill
+    {
+        public NarcoticsSkill() : base ("Narcotics", 0) { }
     }
 }

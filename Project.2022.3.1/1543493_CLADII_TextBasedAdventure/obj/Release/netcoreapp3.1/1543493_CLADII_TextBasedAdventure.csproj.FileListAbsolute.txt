@@ -1,0 +1,16 @@
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.exe
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.deps.json
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.runtimeconfig.json
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.runtimeconfig.dev.json
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.dll
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.pdb
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.csproj.AssemblyReference.cache
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.AssemblyInfoInputs.cache
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.AssemblyInfo.cs
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.csproj.CoreCompileInputs.cache
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.csproj.CopyComplete
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.dll
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.pdb
+C:\Users\scehr\OneDrive\__GitHub__\1543493_CLADII_TextBasedAdventure\Project.2022.3.1\1543493_CLADII_TextBasedAdventure\obj\Release\netcoreapp3.1\1543493_CLADII_TextBasedAdventure.genruntimeconfig.cache
